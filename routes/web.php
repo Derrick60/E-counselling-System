@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\AppointmentsController;
-use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Client2Controller;
 use App\Http\Controllers\CounselorController;
 
 /*
@@ -22,8 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/master', function () {
+    return view('layouts.master');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -34,13 +34,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointment', [AppointmentsController::class, 'index']);
     Route::get('/appointment-create', [AppointmentsController::class, 'create']);
     Route::post('/appointment-save', [AppointmentsController::class, 'store']);
+     Route::delete('/delete/{id}', [AppointmentsController::class, 'destroy']);
     
 
     //client
-    Route::get('/client', [ClientController::class, 'index']);
-    Route::get('/client', [ClientController::class, 'fetch']);
-    Route::get('/create-client', [ClientController::class, 'show']);
-    Route::post('/client-save', [ClientController::class, 'store']);
+    Route::get('/client', [Client2Controller::class, 'index']);
+    Route::get('/client', [Client2Controller::class, 'fetch']);
+    Route::get('/create-client', [Client2Controller::class, 'show']);
+    Route::post('/client-save', [Client2Controller::class, 'store']);
+    Route::get('/client-edit/{id}', [Client2Controller::class, 'edit']);
+    Route::put('/client-update/{id}', [Client2Controller::class, 'update']);
+    Route::delete('/client-delete/{id}', [Client2Controller::class, 'destroy']);
      
     //counselor
     Route::group(['middleware' => ['role:admin']], function () {
@@ -50,8 +54,8 @@ Route::middleware('auth')->group(function () {
      Route::get('/counselor-create', [CounselorController::class, 'show']);
      Route::post('/counselor-save', [CounselorController::class, 'store']);
      Route::get('/counselor-edit/{id}', [CounselorController::class, 'edit']);
-      Route::put('/counselor-update/{id}', [CounselorController::class, 'update']);
-       Route::delete('/counselor-delete/{id}', [CounselorController::class, 'destroy']);
+     Route::put('/counselor-update/{id}', [CounselorController::class, 'update']);
+    Route::delete('/counselor-delete/{id}', [CounselorController::class, 'destroy']);
      });
     //slot
      Route::get('/slot', [SlotController::class, 'index']);
