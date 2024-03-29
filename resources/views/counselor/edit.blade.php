@@ -8,10 +8,8 @@
         @method('PUT')
 
 </div>
-<div class="mb-3">
-    <label for="name" class="form-label">Name:</label>
-    <input type="text" class="form-control" name="user_id" value="{{$counselors->id}}" required>
-</div>
+
+<input type="text" class="form-control" name="user_id" value="{{$counselors->id}}" hidden>
 {{--name of user--}}
 <div class="mb-3">
     <label for="name" class="form-label">Name:</label>

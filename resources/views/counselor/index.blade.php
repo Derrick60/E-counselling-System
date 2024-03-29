@@ -19,7 +19,7 @@
         {{ session('success') }}
     </div>
     @endif
-    <a href="/counselor-create">CREATE</a>
+    <a type="button" class="btn btn-success" href="/counselor-create">CREATE</a>
     <!-- Display a table of appointments -->
     <table class="table">
         <thead>
@@ -43,9 +43,10 @@
                 <td>{{$counselor->regNo}}</td>
                 <td>{{$counselor->email}}</td>
                 <td>
-                    <a href="counselor-edit/{{$counselor->id}}" type="button" class="btn btn-success">Edit</a>
-                    <button type="button" class="btn btn-warning delete" value="{{$counselor->id}}">
-                        Delete
+                    <a href="counselor-edit/{{$counselor->id}}" type="button" class="btn btn-success"><i
+                            class="bi-pencil-square h8"></i></a></a>
+                    <button type="button" class="btn btn-danger delete" value="{{$counselor->id}}">
+                        <i class="bi-trash h8"></i>
                     </button>
                 </td>
             </tr>
@@ -66,9 +67,10 @@ headers: {
 }
 });
 });
-    $(document).on('click','.delete',function (e){
+    $('.delete').click(function (e){
     e.preventDefault();
     var delete_id = $(this).val();
+    // alert(delete_id);
   
     
     
@@ -87,9 +89,8 @@ headers: {
     };
     
     $.ajax({
-    type: '',
-    url: "{{url('counselor-delete')}}/"+ delete_id,
-    data: data,
+    type: 'DELETE',
+    url: '/counselor-delete/'+ delete_id,
     success: function (response) {
         console.log(response);
     
